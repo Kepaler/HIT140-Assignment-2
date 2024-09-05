@@ -12,38 +12,35 @@ weekend_usage = {
     'S_we': df['S_we'].value_counts().sort_index(),
     'T_we': df['T_we'].value_counts().sort_index()
 }
+x = np.arrange(len(week_usage))
 
-# Aggregate the data for the weekday
-weekday_usage = {
-    'C_wk': df['C_wk'].value_counts().sort_index(),
-    'G_wk': df['G_wk'].value_counts().sort_index(),
-    'S_wk': df['S_wk'].value_counts().sort_index(),
-    'T_wk': df['T_wk'].value_counts().sort_index()
+width = 0.2
+
+#defining colours to customise the colour of the bars 
+colours = {
+    'C_we': '#3356ff',
+    'G_we': '#33a4ff',
+    'S_we': '#33c2ff',
+    'T_we': '#33daff'
 }
 
-# Plot the data for the weekend
-plt.figure(figsize=(12, 8))
-for i, (key, value) in enumerate(weekend_usage.items()):
+#defiing legen to adjust labels of the graph bars 
+legend_labels = {
+    'C_we': 'Computer Use',
+    'G_we': 'Gaming',
+    'S_we': 'Social Media',
+    'T_we': 'Watching TV'
+}
+
+# Adjusting graph size\ etc.
+plt.figure(figsize = (12, 8))
+for i, (key, value) in enumerate(week_usage.items()):
     x = np.arange(len(value))
-    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=key)
+    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=legend_labels[key], color=colours[key])
 
-plt.xlabel('Time spent (Hrs)')
+plt.xlabel('Time spent using technology (Hrs)')
 plt.ylabel('Number of Adolescents')
-plt.title('Technology Use on the Weekend')
-plt.xticks(x + 0.3, value.index)
-plt.legend()
-plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-plt.show()
-
-# Plot the data for the weekday
-plt.figure(figsize=(12, 8))
-for i, (key, value) in enumerate(weekday_usage.items()):
-    x = np.arange(len(value))
-    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=key)
-
-plt.xlabel('Time spent (Hrs)')
-plt.ylabel('Number of Adolescents')
-plt.title('Technology Use on Weekdays')
+plt.title(" The amount of time Adolescents spend using Technology during the week")
 plt.xticks(x + 0.3, value.index)
 plt.legend()
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
