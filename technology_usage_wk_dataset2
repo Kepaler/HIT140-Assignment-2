@@ -1,0 +1,48 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Read CSV file
+df = pd.read_csv('dataset2.csv')
+
+# Aggregating data 
+week_usage = {
+    'C_wk': df['C_wk'].value_counts().sort_index(),
+    'G_wk': df['G_wk'].value_counts().sort_index(),
+    'S_wk': df['S_wk'].value_counts().sort_index(),
+    'T_wk': df['T_wk'].value_counts().sort_index()
+}
+x = np.arange(len(week_usage))
+
+#defining width
+width = 0.2
+
+#defining colours to customise the colour of the bars 
+colours = {
+    'C_wk': '#3356ff',
+    'G_wk': '#33a4ff',
+    'S_wk': '#33c2ff',
+    'T_wk': '#33daff'
+}
+
+#defining legend to adjust labels of graph bars 
+legend_labels = {
+    'C_wk': 'Computer Use',
+    'G_wk': 'Gaming',
+    'S_wk': 'Social Media',
+    'T_wk': 'Watching TV'
+}
+
+# Adjusting graph size, 
+plt.figure(figsize = (12, 8))
+for i, (key, value) in enumerate(week_usage.items()):
+    x = np.arange(len(value))
+    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=legend_labels[key], color=colours[key])
+
+plt.xlabel('Time spent using technology (Hrs)')
+plt.ylabel('Number of Adolescents')
+plt.title(" The amount of time Adolescents spend using Technology during the week")
+plt.xticks(x + 0.3, value.index)
+plt.legend()
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()

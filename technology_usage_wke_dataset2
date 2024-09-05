@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Read the CSV file
+df = pd.read_csv('dataset2.csv')
+
+# Aggregate the data for the weekend
+weekend_usage = {
+    'C_we': df['C_we'].value_counts().sort_index(),
+    'G_we': df['G_we'].value_counts().sort_index(),
+    'S_we': df['S_we'].value_counts().sort_index(),
+    'T_we': df['T_we'].value_counts().sort_index()
+}
+
+# Aggregate the data for the weekday
+weekday_usage = {
+    'C_wk': df['C_wk'].value_counts().sort_index(),
+    'G_wk': df['G_wk'].value_counts().sort_index(),
+    'S_wk': df['S_wk'].value_counts().sort_index(),
+    'T_wk': df['T_wk'].value_counts().sort_index()
+}
+
+# Plot the data for the weekend
+plt.figure(figsize=(12, 8))
+for i, (key, value) in enumerate(weekend_usage.items()):
+    x = np.arange(len(value))
+    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=key)
+
+plt.xlabel('Time spent (Hrs)')
+plt.ylabel('Number of Adolescents')
+plt.title('Technology Use on the Weekend')
+plt.xticks(x + 0.3, value.index)
+plt.legend()
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()
+
+# Plot the data for the weekday
+plt.figure(figsize=(12, 8))
+for i, (key, value) in enumerate(weekday_usage.items()):
+    x = np.arange(len(value))
+    plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=key)
+
+plt.xlabel('Time spent (Hrs)')
+plt.ylabel('Number of Adolescents')
+plt.title('Technology Use on Weekdays')
+plt.xticks(x + 0.3, value.index)
+plt.legend()
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()

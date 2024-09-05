@@ -1,0 +1,27 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_csv('dataset2.csv')
+
+# Aggregating the data
+weekend_usage = df['S_we'].value_counts().sort_index()
+weekday_usage = df['S_wk'].value_counts().sort_index()
+x = np.arange(len(weekend_usage))
+
+# width of the bars
+width = 0.4
+
+# Plotting the data
+plt.figure(figsize=(10, 6))
+plt.bar(x - width/2, weekend_usage.values, width=width, color='#77DD77', alpha=0.7, label='Weekend')
+plt.bar(x + width/2, weekday_usage.values, width=width, color='#FDFD96', alpha=0.7, label='Weekday')
+
+# Adding titles, adjusting gridline, creating graph
+plt.xlabel('Time spent using a Smartphone (Hrs)')
+plt.ylabel('Number of Adolescents')
+plt.title('The amount of time Adolescents spend using a Smartphone on the Weekend vs Weekday')
+plt.xticks(x, weekend_usage.index)
+plt.legend()
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()
