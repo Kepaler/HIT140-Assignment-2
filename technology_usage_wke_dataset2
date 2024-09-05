@@ -12,11 +12,11 @@ weekend_usage = {
     'S_we': df['S_we'].value_counts().sort_index(),
     'T_we': df['T_we'].value_counts().sort_index()
 }
-x = np.arrange(len(week_usage))
+x = np.arrange(len(weekend_usage))
 
 width = 0.2
 
-#defining colours to customise the colour of the bars 
+# Defining colours to customise the colour of the bars 
 colours = {
     'C_we': '#3356ff',
     'G_we': '#33a4ff',
@@ -24,7 +24,7 @@ colours = {
     'T_we': '#33daff'
 }
 
-#defiing legen to adjust labels of the graph bars 
+# Defining legend to adjust labels of the graph bars 
 legend_labels = {
     'C_we': 'Computer Use',
     'G_we': 'Gaming',
@@ -32,15 +32,16 @@ legend_labels = {
     'T_we': 'Watching TV'
 }
 
-# Adjusting graph size\ etc.
+# Adjusting graph size etc.
 plt.figure(figsize = (12, 8))
-for i, (key, value) in enumerate(week_usage.items()):
+for i, (key, value) in enumerate(weekend_usage.items()):
     x = np.arange(len(value))
     plt.bar(x + i*0.2, value.values, width=0.2, alpha=0.7, label=legend_labels[key], color=colours[key])
 
+# Labelling graph and printing
 plt.xlabel('Time spent using technology (Hrs)')
 plt.ylabel('Number of Adolescents')
-plt.title(" The amount of time Adolescents spend using Technology during the week")
+plt.title(" The amount of time Adolescents spend using Technology during the weekend")
 plt.xticks(x + 0.3, value.index)
 plt.legend()
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
