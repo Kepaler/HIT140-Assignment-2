@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Data Loading and Merging
+dataset1 = pd.read_csv('dataset1.csv')
+dataset2 = pd.read_csv('dataset2.csv')
+dataset3 = pd.read_csv('dataset3.csv')
+
+# Display the first few rows of each dataset to verify that they've been loaded correctly
+print("Dataset 1:")
+print(dataset1.head())
+
+print("\nDataset 2:")
+print(dataset2.head())
+
+print("\nDataset 3:")
+print(dataset3.head())
+
+# Merge the datasets on 'ID'
+merged_data = pd.merge(pd.merge(dataset1, dataset2, on='ID'), dataset3, on='ID')
+
+# Check the available columns in the merged dataset
+print("Columns in the merged dataset:")
+print(merged_data.columns)
+
+# Check for missing values
+print("\nMissing Values in Merged Data:")
+print(merged_data.isnull().sum())
+merged_data.fillna(merged_data.mean(), inplace=True)
+
+# Save the prepared data
+merged_data.to_csv('prepared_data.csv', index=False)
