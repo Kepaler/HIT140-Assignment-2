@@ -1,0 +1,59 @@
+import numpy as np
+import statistics as stat 
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv('dataset2.csv')
+
+# Creating a statistical summary function 
+def compute_summary(data):
+    q1 = np.percentile(data, 25)
+    q2 = np.percentile(data, 50)
+    q3 = np.percentile(data, 75)
+    summary = {
+        'mean': stat.mean(data),
+        'median': stat.median(data),
+        'mode': stat.mode(data) if len(set(data)) != len(data) else 'No Mode',
+        'max': np.max(data),
+        'min': np.min(data),
+        '25th percentile': q1,
+        '50th percentile': q2,
+        '75th percentile': q3,
+        'interquartile range': q3 - q1,
+        'variance': np.var(data, ddof=1),
+        'std_dev': np.std(data, ddof=1)
+    }
+    return summary
+
+# Extracting data for weekend and weekday 
+weekend_data = ['C_we', 'G_we', 'S_we', 'T_we']
+weekday_data = ['C_wk', 'G_wk', 'S_wk', 'T_wk']
+
+# Function to create summary for each set of data
+def create_summary(data_columns):
+    summaries = {stat: [] for stat in ['mean', 'median', 'mode', 'max', 'min', '25th percentile', '50th percentile', '75th percentile', 'interquartile range', 'variance', 'std_dev']}
+    for col in data_columns:
+        summary = compute_summary(df[col])
+        for stat in summaries:
+            summaries[stat].append(summary[stat])
+    return pd.DataFrame(summaries, index=data_columns).T
+
+# Creating summaries
+weekend_summary = create_summary(weekend_data)
+weekday_summary = create_summary(weekday_data)
+
+# Displaying the tables
+print("Weekday Technology Use Summary:")
+print(weekday_summary)
+
+print("\nWeekend Technology Use Summary:")
+print(weekend_summary)
+
+
+
+
+
+    
+
+
+

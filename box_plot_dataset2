@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('dataset2.csv')
+
+# Rename the columns for better readability
+df.rename(columns={
+    'C_wk': 'Computer usage during the week',
+    'G_wk': 'Gaming during the week',
+    'S_wk': 'Social Media during the week',
+    'T_wk': 'TV watching during the week',
+    'C_we': 'Computer usage during the weekend',
+    'G_we': 'Gaming during the weekend',
+    'S_we': 'Social Media during the weekend',
+    'T_we': 'TV watching during the weekend'
+}, inplace=True)
+
+# Plotting
+plt.figure(figsize=(14, 8))
+sns.boxplot(data=df[['Computer usage during the week', 'Gaming during the week', 'Social Media during the week', 'TV watching during the week',
+                     'Computer usage during the weekend', 'Gaming during the weekend', 'Social Media during the weekend', 'TV watching during the weekend']],
+            palette=['#3356ff', '#33a4ff', '#33c2ff', '#33daff'])
+plt.title('Distribution of Technology Use ')
+plt.xlabel('different types of Technology use')
+plt.ylabel('Time spent using technology (hrs)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
